@@ -1,0 +1,17 @@
+.mynav {
+  background-color: rgb(128, 200, 237) !important;
+}
+
+.myacc {
+  background-color: rgb(245, 242, 191) !important;
+}
+
+.text-color {
+  color: rgb(128, 200, 237) !important;
+}
+
+img.card-img {
+  width: 100px;
+  height: 100px;
+  margin: 10px auto;
+}
