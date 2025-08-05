@@ -9,7 +9,7 @@ const NavbarMeteo = function () {
       <header>
         <Navbar expand="lg" className="mynav" data-bs-theme="dark">
           <Container>
-            <Link className="navbar-brand" to="/index">
+            <Link className="navbar-brand" to="/">
               <em>MyMeteo</em>
             </Link>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -17,11 +17,9 @@ const NavbarMeteo = function () {
               <Nav className="me-auto">
                 <Link
                   className={
-                    location.pathname === "/index"
-                      ? "nav-link active"
-                      : "nav-link"
+                    location.pathname === "/" ? "nav-link active" : "nav-link"
                   }
-                  to="/index"
+                  to="/"
                 >
                   Home
                 </Link>

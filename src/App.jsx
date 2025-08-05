@@ -14,7 +14,7 @@ function App() {
         <NavbarMeteo />
         <main className="flex-grow-1">
           <Routes>
-            <Route path="/index" element={<MeteoAccordion />} />
+            <Route path="/" element={<MeteoAccordion />} />
             <Route
               element={<MeteoSettimana />}
               path="/meteo-settimana/:cityName"
