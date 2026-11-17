@@ -1,4 +1,5 @@
-import { Droplets, Gauge, Sunrise, Sunset, Wind } from "lucide-react"
+import { Droplets, Gauge, Sun, Wind } from "lucide-react"
+import SunSchedule from './SunSchedule'
 
 export default function WeatherDetails({ city, current, today, sunProgress }) {
   return (
@@ -8,13 +9,16 @@ export default function WeatherDetails({ city, current, today, sunProgress }) {
       data-nav-section
       aria-labelledby="details-title"
     >
+      <Sun className="details-decoration" aria-hidden="true" />
       <div className="container">
         <div className="section-heading">
           <div>
             <p className="eyebrow">PIÙ INFORMAZIONI</p>
             <h2 id="details-title">Dettagli di oggi</h2>
           </div>
-          <p className="section-note">Uno sguardo in più su {city.name}</p>
+          <p className="section-note">{city.isCurrentLocation && city.name === 'La tua posizione'
+            ? 'Uno sguardo in più nella tua zona'
+            : `Uno sguardo in più su ${city.name}`}</p>
         </div>
         <div className="details-grid">
           <article className="detail-card">
@@ -60,40 +64,7 @@ export default function WeatherDetails({ city, current, today, sunProgress }) {
             </p>
             <p>Al livello del mare</p>
           </article>
-          <article className="sun-card" aria-label="Alba e tramonto">
-            <div className="sun-orbit" aria-hidden="true">
-              <div className="sun-arc" />
-              <span
-                className="sun-dot"
-                style={{
-                  "--sun-progress": `${sunProgress ?? 0.5}`,
-                }}
-              />
-            </div>
-            <div className="sun-times">
-              <div>
-                <Sunrise aria-hidden="true" />
-                <div>
-                  <h3>Alba</h3>
-                  <p>{today?.sunrise.slice(11, 16) ?? "—"}</p>
-                </div>
-              </div>
-              <div>
-                <Sunset aria-hidden="true" />
-                <div>
-                  <h3>Tramonto</h3>
-                  <p>{today?.sunset.slice(11, 16) ?? "—"}</p>
-                </div>
-              </div>
-            </div>
-            <p className="sun-caption">
-              {current
-                ? current.isDay
-                  ? "La luce accompagna la tua giornata."
-                  : "Anche il cielo si prende una pausa."
-                : "Gli orari del sole, nella tua città."}
-            </p>
-          </article>
+          <SunSchedule current={current} today={today} sunProgress={sunProgress} />
         </div>
       </div>
     </section>

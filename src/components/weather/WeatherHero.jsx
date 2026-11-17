@@ -1,6 +1,6 @@
 import CitySearch from "./CitySearch"
 
-export default function WeatherHero({ favorites, onSelectCity, children }) {
+export default function WeatherHero({ favorites, onSelectCity, onLocate, locating, locationMessage, children }) {
   return (
     <section
       className="hero container"
@@ -8,12 +8,9 @@ export default function WeatherHero({ favorites, onSelectCity, children }) {
       data-nav-section
       aria-labelledby="hero-title"
     >
-      <span className="hero-watermark" aria-hidden="true">
-        WEATHER
-      </span>
       <div className="hero-copy">
         <p className="eyebrow live-label">
-          <span /> LIVE WEATHER · IL TUO METEO
+          <span /> IL TUO METEO · IN TEMPO REALE
         </p>
         <h1 id="hero-title">
           Il meteo,
@@ -24,7 +21,8 @@ export default function WeatherHero({ favorites, onSelectCity, children }) {
           Tutto quello che ti serve per organizzare la giornata.
           <br className="desktop-break" /> Niente di più.
         </p>
-        <CitySearch favorites={favorites} onSelectCity={onSelectCity} />
+        <CitySearch favorites={favorites} onSelectCity={onSelectCity}
+          onLocate={onLocate} locating={locating} locationMessage={locationMessage} />
       </div>
 
       {children}

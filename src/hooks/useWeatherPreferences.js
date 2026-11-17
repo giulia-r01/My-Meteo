@@ -1,24 +1,9 @@
 import useLocalStorageState from "./useLocalStorageState"
-
-function sanitizeFavorites(value) {
-  return Array.isArray(value)
-    ? value.filter(
-        (city) =>
-          city &&
-          typeof city.name === "string" &&
-          Number.isFinite(city.latitude) &&
-          Number.isFinite(city.longitude),
-      )
-    : []
-}
-
-function sameCity(first, second) {
-  return (
-    first.latitude === second.latitude && first.longitude === second.longitude
-  )
-}
+import { useState } from 'react'
+import { sameCity, sanitizeFavorites, toggleCityFavorite } from '../utils/favorites'
 
 export default function useWeatherPreferences() {
+  const [favoriteMessage, setFavoriteMessage] = useState('')
   const [unit, setUnit] = useLocalStorageState("myMeteo-unit", "C", (value) =>
     value === "F" ? "F" : "C",
   )
@@ -33,12 +18,11 @@ export default function useWeatherPreferences() {
   }
 
   function toggleFavorite(city) {
-    setFavorites((previous) =>
-      previous.some((item) => sameCity(item, city))
-        ? previous.filter((item) => !sameCity(item, city))
-        : [...previous, city],
-    )
+    setFavoriteMessage(isFavorite(city)
+      ? `${city.name}: rimossa dai preferiti.`
+      : `${city.name}: aggiunta ai preferiti. La ritrovi sotto la ricerca.`)
+    setFavorites(previous => toggleCityFavorite(previous, city))
   }
 
-  return { unit, setUnit, favorites, isFavorite, toggleFavorite }
+  return { unit, setUnit, favorites, isFavorite, toggleFavorite, favoriteMessage }
 }

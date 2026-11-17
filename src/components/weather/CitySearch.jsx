@@ -1,9 +1,9 @@
 import { useRef } from "react"
-import { ArrowUpRight, Heart, MapPin, Search } from "lucide-react"
+import { ArrowUpRight, Heart, LocateFixed, MapPin, Search } from "lucide-react"
 import { presets } from "../../data/cities"
 import useCitySearch from "../../hooks/useCitySearch"
 
-export default function CitySearch({ favorites, onSelectCity }) {
+export default function CitySearch({ favorites, onSelectCity, onLocate, locating, locationMessage }) {
   const inputRef = useRef(null)
   const {
     query,
@@ -47,6 +47,17 @@ export default function CitySearch({ favorites, onSelectCity }) {
           <ArrowUpRight size={18} aria-hidden="true" />
         </button>
       </form>
+      <div className="location-search">
+        <button type="button" className="location-button" onClick={() => {
+          reset()
+          onLocate()
+        }} disabled={locating} aria-describedby="location-status">
+          <LocateFixed size={19} aria-hidden="true" />
+          {locating ? 'Cerco la posizione…' : 'Usa la mia posizione'}
+        </button>
+        <p id="location-status" role="status">{locationMessage}</p>
+        <p>Nome della città da <a href="https://www.bigdatacloud.com/">BigDataCloud</a>, usando le coordinate del dispositivo.</p>
+      </div>
       <p className="search-help" id="search-help">
         Prova:{" "}
         {presets.map((item, index) => (

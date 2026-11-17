@@ -37,9 +37,11 @@ export default function CurrentWeather({
           className="favorite-button"
           onClick={onToggleFavorite}
           aria-pressed={favorite}
+          title={favorite ? 'Rimuovi dai preferiti' : 'Salva tra i preferiti'}
           aria-label={`${favorite ? "Rimuovi" : "Aggiungi"} ${city.name} ${favorite ? "dai" : "ai"} preferiti`}
         >
-          <Heart size={23} fill={favorite ? "currentColor" : "none"} />
+          <Heart size={21} aria-hidden="true" fill={favorite ? "currentColor" : "none"} />
+          <span>{favorite ? 'Salvata' : 'Salva'}</span>
         </button>
       </div>
       <div className="weather-status" role="status">
